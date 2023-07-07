@@ -1,0 +1,4 @@
+name: SkyGuns
+version: '0.1.23'
+main: de.laurinhummel.skyguns.main.Main
+api-version: '1.18'
