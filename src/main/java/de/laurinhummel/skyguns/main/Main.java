@@ -1,5 +1,7 @@
 package de.laurinhummel.skyguns.main;
 
+import de.laurinhummel.skyguns.commands.getPistol;
+import de.laurinhummel.skyguns.guns.Pistol;
 import de.laurinhummel.skyguns.listeners.TestPlayerShootParticleListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -16,8 +18,9 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         PluginManager pluginManager = Bukkit.getPluginManager();
+            pluginManager.registerEvents((Listener) new TestPlayerShootParticleListener(), this);
 
-        pluginManager.registerEvents((Listener) new TestPlayerShootParticleListener(), this);
+            getCommand("pistol").setExecutor(new getPistol());
     }
 
     @Override

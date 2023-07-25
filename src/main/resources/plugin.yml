@@ -1,4 +1,8 @@
 name: SkyGuns
-version: '0.1.23'
+version: ${project.version}
 main: de.laurinhummel.skyguns.main.Main
 api-version: '1.18'
+
+commands:
+  pistol:
+    description: sasdasd

@@ -1,5 +1,6 @@
 package de.laurinhummel.skyguns.listeners;
 
+import de.laurinhummel.skyguns.guns.Pistol;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -8,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class TestPlayerShootParticleListener implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         if(!event.getAction().equals(Action.LEFT_CLICK_AIR)) { return; }
-        if(!Objects.equals(event.getItem(), new ItemStack(Material.DIAMOND_HOE))) { return; }
+        if(!Objects.equals(event.getItem(), new ItemStack(new Pistol(Pistol.PistolType.GLOCK_17).getItem()))) { return; }
         Player player = event.getPlayer();
 
         int i = 0;
@@ -33,7 +35,7 @@ public class TestPlayerShootParticleListener implements Listener {
                 for(Entity entity : loc.getWorld().getNearbyEntities(loc, 0.5, 1, 0.5)) {
                     if(entity instanceof Monster) {
                         ((LivingEntity) entity).damage(200);
-                        player.sendMessage("!");
+                        //player.sendMessage("!");
                         i++;
                         if(i == 2) { return; }
                     }
