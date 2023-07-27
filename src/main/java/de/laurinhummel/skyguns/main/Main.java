@@ -3,8 +3,12 @@ package de.laurinhummel.skyguns.main;
 import de.laurinhummel.skyguns.commands.getPistol;
 import de.laurinhummel.skyguns.guns.Pistol;
 import de.laurinhummel.skyguns.listeners.TestPlayerShootParticleListener;
+import de.laurinhummel.skyguns.utils.Cooldown;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,10 +21,19 @@ public final class Main extends JavaPlugin {
     }
     @Override
     public void onEnable() {
+        Cooldown.setupCooldown();
         PluginManager pluginManager = Bukkit.getPluginManager();
             pluginManager.registerEvents((Listener) new TestPlayerShootParticleListener(), this);
 
             getCommand("pistol").setExecutor(new getPistol());
+
+        ShapedRecipe itemRecipe = new ShapedRecipe(new NamespacedKey(Main.getPlugin(), "GLOCK17"), new Pistol(Pistol.PistolType.GLOCK_17).getItem());
+            itemRecipe.shape(" II", "GNL", " I ");
+            itemRecipe.setIngredient('I', Material.IRON_BLOCK);
+            itemRecipe.setIngredient('G', Material.GUNPOWDER);
+            itemRecipe.setIngredient('N', Material.NETHERITE_INGOT);
+            itemRecipe.setIngredient('L', Material.LEVER);
+        Bukkit.addRecipe(itemRecipe);
     }
 
     @Override

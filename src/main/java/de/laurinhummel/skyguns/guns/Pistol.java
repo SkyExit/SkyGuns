@@ -1,13 +1,11 @@
 package de.laurinhummel.skyguns.guns;
 
-import de.laurinhummel.skyguns.main.Main;
 import de.laurinhummel.skyguns.utils.McColors;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Pistol extends ItemStack {
+public class Pistol {
     private final PistolType pistolType;
     public Pistol(PistolType pistolType) {
         this.pistolType = pistolType;
