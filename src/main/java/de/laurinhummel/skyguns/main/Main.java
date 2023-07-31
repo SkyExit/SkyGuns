@@ -3,7 +3,7 @@ package de.laurinhummel.skyguns.main;
 import de.laurinhummel.skyguns.commands.getPistol;
 import de.laurinhummel.skyguns.guns.Pistol;
 import de.laurinhummel.skyguns.listeners.TestPlayerShootParticleListener;
-import de.laurinhummel.skyguns.utils.Cooldown;
+import de.laurinhummel.skyguns.cooldowns.CooldownManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -21,7 +21,7 @@ public final class Main extends JavaPlugin {
     }
     @Override
     public void onEnable() {
-        Cooldown.setupCooldown();
+        CooldownManager.setupCooldown();
         PluginManager pluginManager = Bukkit.getPluginManager();
             pluginManager.registerEvents((Listener) new TestPlayerShootParticleListener(), this);
 
