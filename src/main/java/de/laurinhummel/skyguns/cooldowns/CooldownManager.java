@@ -22,16 +22,15 @@ public class CooldownManager {
     public static void setCooldown(Player player, int milliseconds) {
         double delay = (double)(System.currentTimeMillis() + (long)(milliseconds));
         cooldowns.add(new Cooldown(player.getUniqueId(), delay));
-        //cooldowns.put(player.getUniqueId(), delay);
     }
 
     public static boolean checkCooldown(Player player) {
+        if(cooldowns.isEmpty()) { return false; }
         for (Cooldown cooldown : cooldowns ) {
             if(cooldown.uuid.equals(player.getUniqueId())) {
                 return !(cooldown.cooldown <= System.currentTimeMillis());
             }
         }
         return false;
-        //return !cooldowns.containsKey(player.getUniqueId()) || (Double)cooldowns.get(player.getUniqueId()) <= (double)System.currentTimeMillis();
     }
 }

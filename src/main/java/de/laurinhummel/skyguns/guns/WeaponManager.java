@@ -30,4 +30,10 @@ public class WeaponManager {
 
         return weapon.equals(glock) || weapon.equals(deagle);
     }
+
+    public Weapon getWeapon() {
+        if(weapon.equals(new Pistol(Pistol.PistolType.GLOCK_17).getItem())) { return new Pistol(Pistol.PistolType.GLOCK_17); }
+        if(weapon.equals(new Pistol(Pistol.PistolType.DESSERT_EAGLE).getItem())) { return new Pistol(Pistol.PistolType.DESSERT_EAGLE); }
+        return null;
+    }
 }

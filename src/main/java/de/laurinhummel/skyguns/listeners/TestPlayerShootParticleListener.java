@@ -1,8 +1,11 @@
 package de.laurinhummel.skyguns.listeners;
 
+import de.laurinhummel.skyguns.guns.Pistol;
+import de.laurinhummel.skyguns.guns.Weapon;
 import de.laurinhummel.skyguns.guns.WeaponManager;
 import de.laurinhummel.skyguns.cooldowns.CooldownManager;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
@@ -18,10 +21,12 @@ public class TestPlayerShootParticleListener implements Listener {
         WeaponManager weaponManager = new WeaponManager(event.getItem());
         if(!weaponManager.isWeapon()) { return; }
         Player player = event.getPlayer();
+        Weapon weapon = weaponManager.getWeapon();
 
         if (CooldownManager.checkCooldown(event.getPlayer())) {
-            CooldownManager.setCooldown(event.getPlayer(), glock17.getDelay()); //Sets a cooldown
-        } else { return; }
+            CooldownManager.setCooldown(event.getPlayer(), weapon.getDelay());
+        }
+        player.setCooldown(Material.GOLDEN_HOE, weapon.getDelay()/50);
 
         int i = 0;
 

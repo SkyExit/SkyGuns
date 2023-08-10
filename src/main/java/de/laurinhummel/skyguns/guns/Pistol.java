@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Pistol {
+public class Pistol extends Weapon {
     private final PistolType pistolType;
     public Pistol(PistolType pistolType) {
         this.pistolType = pistolType;
@@ -28,9 +28,11 @@ public class Pistol {
     }
 
     public int getMagSize() { return pistolType.getMagSize(); }
+
+    @Override
     public int getDelay() { return pistolType.getDelay(); }
     public ItemStack getItem() {
-        ItemStack itemStack = new ItemStack(Material.DIAMOND_HOE);
+        ItemStack itemStack = new ItemStack(Material.GOLDEN_HOE);
         ItemMeta itemMeta = itemStack.getItemMeta();
         assert itemMeta != null;
         switch (pistolType) {
