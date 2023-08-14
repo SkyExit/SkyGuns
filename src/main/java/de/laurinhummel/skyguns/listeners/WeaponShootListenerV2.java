@@ -1,5 +1,6 @@
 package de.laurinhummel.skyguns.listeners;
 
+import de.laurinhummel.skyguns.guns.DamageManager;
 import de.laurinhummel.skyguns.guns.Weapon;
 import de.laurinhummel.skyguns.guns.WeaponManager;
 import de.laurinhummel.skyguns.utils.Cooldown;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.util.BlockIterator;
 
@@ -40,14 +42,14 @@ public class WeaponShootListenerV2 implements Listener {
         Location loc2 = player.getEyeLocation();
         player.playSound(loc2, Sound.UI_BUTTON_CLICK, 1, 1);
 
-        double maxLength = 20;
-        for(double d = 2; d <= maxLength; d++) {
+        int range = weapon.getRange();
+        for(double d = 2; d <= range; d++) {
             loc2.add(loc2.getDirection());
             if(!loc2.getBlock().isPassable()) { continue; }
             player.spawnParticle(Particle.VILLAGER_HAPPY, loc2, 1, 0, 0, 0);
         }
 
-        List<Entity> nearbyE = player.getNearbyEntities(20, 20, 20);
+        List<Entity> nearbyE = player.getNearbyEntities(range, range, range);
         ArrayList<LivingEntity> livingE = new ArrayList<>();
 
         for (Entity e : nearbyE) {
@@ -56,29 +58,40 @@ public class WeaponShootListenerV2 implements Listener {
             }
         }
 
-        BlockIterator bItr = new BlockIterator(player, 20);
+        BlockIterator bItr = new BlockIterator(player, range);
         Block block;
         Location loc;
         int bx, by, bz;
         double ex, ey, ez;
         // loop through player's line of sight
+
+        int distance = 0;
+
         while (bItr.hasNext()) {
+            distance++;
             block = bItr.next();
             bx = block.getX();
             by = block.getY();
             bz = block.getZ();
 
+            if(!block.isPassable()) { return; }
+
             //player.sendMessage(bx + " " + by + " " + bz);
             // check for entities near this block in the line of sight
-            for (LivingEntity e : livingE) {
-                loc = e.getLocation();
+            for (LivingEntity entity : livingE) {
+                loc = entity.getLocation();
                 ex = loc.getX();
                 ey = loc.getY();
                 ez = loc.getZ();
                 //if ((bx-.75 <= ex && ex <= bx+1.75) && (bz-.75 <= ez && ez <= bz+1.75) && (by-1 <= ey && ey <= by+2.5)) {
                 if ((bx - 0.5 <= ex && ex <= bx + 0.5) && (bz - 0.5 <= ez && ez <= bz + 0.5) && (by - 1 <= ey && ey <= by + 1)) {
                     // entity is close enough, set target and stop
-                    e.damage(200);
+                    DamageManager damageManager = new DamageManager(weapon, distance);
+                    int dmg = damageManager.calculateDamage();
+
+                    entity.damage(dmg);
+                    EntityDamageEvent ede = new EntityDamageEvent(player, EntityDamageEvent.DamageCause.CUSTOM, dmg);
+                    entity.setLastDamageCause(ede);
                     return;
                 }
             }

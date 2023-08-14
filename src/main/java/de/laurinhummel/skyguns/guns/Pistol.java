@@ -12,25 +12,40 @@ public class Pistol extends Weapon {
     }
 
     public enum PistolType {
-        DESSERT_EAGLE(5, 2000),
-        GLOCK_17(15, 400);
+        DESSERT_EAGLE(30, 25, 0.15f, 5, 2000),
+        GLOCK_17(12, 20, 0.2f, 15, 400);
 
-        private int magSize;
+        private final int damage;
+        private int range;
+        private float deceleration;
+        private int magazine;
         private int delay;
 
-        private PistolType(int magSize, int delay) {
-            this.magSize = magSize;
+        private PistolType(int damage, int range, float deceleration, int magazine, int delay) {
+            this.damage = damage;
+            this.range = range;
+            this.deceleration = deceleration;
+            this.magazine = magazine;
             this.delay = delay;
         }
 
-        public int getMagSize() { return magSize; }
-        public int getDelay() { return delay; }
+        public int getDamage() { return damage; }
+        public int getRange() { return range; }
+        public float getDeceleration() { return deceleration; }
+        public int getMagSize() { return magazine; }
+        private int getDelay() { return delay; }
     }
 
-    public int getMagSize() { return pistolType.getMagSize(); }
 
     @Override
+    public int getDamage() { return pistolType.getDamage(); }
+    public int getRange() { return pistolType.getRange(); }
+    public float getDeceleration() { return pistolType.getDeceleration(); }
+    public int getMagSize() { return pistolType.getMagSize(); }
     public int getDelay() { return pistolType.getDelay(); }
+
+
+
     public ItemStack getItem() {
         ItemStack itemStack = new ItemStack(Material.GOLDEN_HOE);
         ItemMeta itemMeta = itemStack.getItemMeta();
