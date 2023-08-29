@@ -11,7 +11,7 @@ public class getPistol implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player player = (Player) commandSender;
         //Pistol pistol = new Pistol(Pistol.PistolType.GLOCK_17);
-        player.getInventory().addItem(new Pistol(Pistol.PistolType.GLOCK_17).getItem());
+        player.getInventory().addItem(new Pistol(Pistol.PistolType.DESSERT_EAGLE).getItem());
         return false;
     }
 }

@@ -70,6 +70,9 @@ public class WeaponShootListenerV2 implements Listener {
         while (bItr.hasNext()) {
             distance++;
             block = bItr.next();
+
+            if(!block.isPassable()) { return; }
+
             bx = block.getX();
             by = block.getY();
             bz = block.getZ();

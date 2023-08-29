@@ -13,7 +13,7 @@ public class Pistol extends Weapon {
 
     public enum PistolType {
         DESSERT_EAGLE(30, 25, 0.15f, 5, 2000),
-        GLOCK_17(12, 20, 0.2f, 15, 400);
+        GLOCK_17(12, 20, 0.095f, 15, 400);
 
         private final int damage;
         private int range;

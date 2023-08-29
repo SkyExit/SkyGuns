@@ -4,6 +4,7 @@ import de.laurinhummel.skyguns.commands.getPistol;
 import de.laurinhummel.skyguns.guns.Pistol;
 import de.laurinhummel.skyguns.listeners.PreventRenamingWeapons;
 import de.laurinhummel.skyguns.listeners.WeaponShootListenerV2;
+import de.laurinhummel.skyguns.listeners.WeaponShootListenerV3;
 import de.laurinhummel.skyguns.utils.Cooldown;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,7 +24,7 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
         Cooldown.setupCooldown();
         PluginManager pluginManager = Bukkit.getPluginManager();
-            pluginManager.registerEvents(new WeaponShootListenerV2(), this);
+            pluginManager.registerEvents(new WeaponShootListenerV3(), this);
             pluginManager.registerEvents(new PreventRenamingWeapons(), this);
 
             getCommand("pistol").setExecutor(new getPistol());
